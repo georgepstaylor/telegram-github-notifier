@@ -52,12 +52,25 @@ def build_github_event_link():
 def build_github_user_link(username):
     return f"https://github.com/{username}"
 
+def build_message(event_name):
+    event_link = build_github_event_link()
+    if event_name in ["issues", "issue_comment"]:
+        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
+               *Action:* {event_name}\n 
+               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
+    elif event_name == "pull_request":
+        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
+               *Action:* {Env.GH_EVENT['action']}\n 
+               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
+    else:
+        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
+               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
 def main():
     if telegram_check_token():
         print("Token is valid")
         event_link = build_github_event_link()
         telegram_send_message(
-            message=f"*Event:* [{Env.GH_EVENT_NAME}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})",
+            message=build_message(Env.GH_EVENT),
             inline_keyboard=[
                 [
                     {"text": "Event", "url": event_link},
