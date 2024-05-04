@@ -16,12 +16,15 @@ def telegram_check_token():
     except Exception as e:
         raise Exception("Request failed to connect to Telegram API with error: " + str(e))
 
-def telegram_send_message(message):
+def telegram_send_message(message, inline_keyboard=[]):
     requests.post(
         telegram_base_url + Env.TELEGRAM_BOT_TOKEN + "/sendMessage",
         json={
             "chat_id": Env.TELEGRAM_CHAT_ID,
-            "text": message
+            "text": message,
+            "reply_markup": {
+                "inline_keyboard": inline_keyboard
+            }
         }
     )
 
@@ -50,7 +53,12 @@ def main():
         print("Token is valid")
         link = build_github_link()
         telegram_send_message(
-            message=f"`{Env.GH_EVENT_NAME}` by {Env.GH_ACTOR} in {Env.GH_REPO} \n\n{link}"
+            message=f"`{Env.GH_EVENT_NAME}` by {Env.GH_ACTOR} in {Env.GH_REPO}",
+            inline_keyboard=[
+                [
+                    {"text": "View on GitHub", "url": link}
+                ]
+            ]
         )
     else:
         exit(1)
