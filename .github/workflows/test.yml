@@ -21,7 +21,7 @@ jobs:
       - name: echo github event
         run: echo "${{ toJson(github.event) }}"
       - name: Test
-        uses: georgepstaylor/telegram-notify@main
+        uses: georgepstaylor/telegram-notify@feature/event-action-support
         with:
           telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
