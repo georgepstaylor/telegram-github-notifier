@@ -55,16 +55,16 @@ def build_github_user_link(username):
 def build_message(event_name):
     event_link = build_github_event_link()
     if event_name in ["issues", "issue_comment"]:
-        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
-               *Action:* {event_name}\n 
-               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
+        return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
+               f"*Action:* {event_name}\n"
+               f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
     elif event_name == "pull_request":
-        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
-               *Action:* {Env.GH_EVENT['action']}\n 
-               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
+        return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
+                f"*Action:* {Env.GH_EVENT['action']}\n"
+                f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
     else:
-        return f"""*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n
-               *Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})"""
+        return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
+                f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
 def main():
     if telegram_check_token():
         print("Token is valid")
