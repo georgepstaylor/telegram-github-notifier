@@ -57,7 +57,7 @@ def main():
         print("Token is valid")
         event_link = build_github_event_link()
         telegram_send_message(
-            message=f"*Event:*[{Env.GH_EVENT_NAME}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})",
+            message=f"*Event:* [{Env.GH_EVENT_NAME}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})",
             inline_keyboard=[
                 [
                     {"text": "View on GitHub", "url": event_link},
