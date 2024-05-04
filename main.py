@@ -60,9 +60,9 @@ def main():
             message=f"*Event:* [{Env.GH_EVENT_NAME}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})",
             inline_keyboard=[
                 [
-                    {"text": "View Event", "url": event_link},
-                    {"text": "View User", "url": build_github_user_link(Env.GH_ACTOR)},
-                    {"text": "View Repo", "url": f"https://github.com/{Env.GH_REPO}"}
+                    {"text": "Event", "url": event_link},
+                    {"text": "User", "url": build_github_user_link(Env.GH_ACTOR)},
+                    {"text": "Repo", "url": f"https://github.com/{Env.GH_REPO}"}
                 ]
             ]
         )
