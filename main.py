@@ -25,11 +25,36 @@ def telegram_send_message(message):
         }
     )
 
+def build_github_link():
+    github_base_url = "https://github.com/{Env.GH_REPO}/"
+
+    event_name_url_map = {
+        "issue_comment": "issues",
+        "issues": "issues",
+        "pull_request": "pulls",
+        "pull_request_review_comment": "pulls",
+        "push": "commits"
+    }
+
+    if Env.GH_EVENT_NAME in ["pull_request_review_comment", "pull_request"]:
+        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['number']}"
+    elif Env.GH_EVENT_NAME in ["issue_comment", "issues"]:
+        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['issue']['number']}"
+    elif Env.GH_EVENT_NAME == "push":
+        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_SHA}"
+    else:
+        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}"
+
 def main():
     if telegram_check_token():
         print("Token is valid")
+        link = build_github_link()
         telegram_send_message(
-            message="Hello, World!"
+            message=f"""ACTION: {Env.GH_EVENT_NAME}
+                    REPO: {Env.GH_REPO}
+                    ACTOR: {Env.GH_ACTOR}
+                    LINK: {link}
+                    """
         )
     else:
         exit(1)
