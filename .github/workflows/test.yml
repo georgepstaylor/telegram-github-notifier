@@ -14,16 +14,16 @@ on:
     branches:
       - main
 
-jobs:
- test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo github event
-        run: echo "${{ toJson(github.event) }}"
-      - name: Test
-        uses: georgepstaylor/telegram-notify@feature/event-action-support
-        with:
-          telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
-          gh_event: ${{ toJson(github.event) }}
-          gh_actor: ${{ github.actor }}
+#jobs:
+# test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: echo github event
+#        run: echo "${{ toJson(github.event) }}"
+#      - name: Test
+#        uses: georgepstaylor/telegram-notify@feature/event-action-support
+#        with:
+#          telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#          telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
+#          gh_event: ${{ toJson(github.event) }}
+#          gh_actor: ${{ github.actor }}
