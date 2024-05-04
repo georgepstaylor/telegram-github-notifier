@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Test
-      uses: georgepstaylor/telegram-notify
+      uses: georgepstaylor/telegram-notify@main
       with:
         telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
