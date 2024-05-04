@@ -70,7 +70,7 @@ def main():
         print("Token is valid")
         event_link = build_github_event_link()
         telegram_send_message(
-            message=build_message(Env.GH_EVENT),
+            message=build_message(Env.GH_EVENT_NAME),
             inline_keyboard=[
                 [
                     {"text": "Event", "url": event_link},
