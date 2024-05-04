@@ -18,10 +18,12 @@ jobs:
  test:
     runs-on: ubuntu-latest
     steps:
-    - name: Test
-      uses: georgepstaylor/telegram-notify@main
-      with:
-        telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
-        gh_event: "${{ github.event }}"
-        gh_actor: ${{ github.actor }}
+      - name: echo github event
+        run: echo "${{ github.event }}"
+      - name: Test
+        uses: georgepstaylor/telegram-notify@main
+        with:
+          telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          gh_event: "${{ github.event }}"
+          gh_actor: ${{ github.actor }}
