@@ -43,7 +43,7 @@ def build_github_event_link():
     if Env.GH_EVENT_NAME in ["pull_request_review_comment", "pull_request"]:
         return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['number']}"
     elif Env.GH_EVENT_NAME in ["issue_comment", "issues"]:
-        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['issue']['number']}"
+        return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['issue']}"
     elif Env.GH_EVENT_NAME == "push":
         return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_SHA}"
     else:
