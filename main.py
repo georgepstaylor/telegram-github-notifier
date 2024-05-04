@@ -17,7 +17,7 @@ def telegram_check_token():
         raise Exception("Request failed to connect to Telegram API with error: " + str(e))
 
 def telegram_send_message(message, inline_keyboard=[]):
-    requests.post(
+    response = requests.post(
         telegram_base_url + Env.TELEGRAM_BOT_TOKEN + "/sendMessage",
         json={
             "chat_id": Env.TELEGRAM_CHAT_ID,
@@ -28,6 +28,7 @@ def telegram_send_message(message, inline_keyboard=[]):
             }
         }
     )
+    print(response.json())
 
 def build_github_event_link():
     github_base_url = f"https://github.com/{Env.GH_REPO}"
@@ -36,6 +37,7 @@ def build_github_event_link():
         "issue_comment": "issues",
         "issues": "issues",
         "pull_request": "pull",
+        "pull_request_review": "pull",
         "pull_request_review_comment": "pull",
         "push": "commit"
     }
