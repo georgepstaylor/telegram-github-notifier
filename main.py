@@ -31,9 +31,9 @@ def build_github_link():
     event_name_url_map = {
         "issue_comment": "issues",
         "issues": "issues",
-        "pull_request": "pulls",
-        "pull_request_review_comment": "pulls",
-        "push": "commits"
+        "pull_request": "pull",
+        "pull_request_review_comment": "pull",
+        "push": "commit"
     }
 
     if Env.GH_EVENT_NAME in ["pull_request_review_comment", "pull_request"]:
@@ -50,11 +50,7 @@ def main():
         print("Token is valid")
         link = build_github_link()
         telegram_send_message(
-            message=f"""ACTION: {Env.GH_EVENT_NAME}
-                    REPO: {Env.GH_REPO}
-                    ACTOR: {Env.GH_ACTOR}
-                    LINK: {link}
-                    """
+            message=f"`{Env.GH_EVENT_NAME}` by {Env.GH_ACTOR} in {Env.GH_REPO} \n\n{link}"
         )
     else:
         exit(1)
