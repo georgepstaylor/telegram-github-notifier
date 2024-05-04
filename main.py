@@ -22,13 +22,14 @@ def telegram_send_message(message, inline_keyboard=[]):
         json={
             "chat_id": Env.TELEGRAM_CHAT_ID,
             "text": message,
+            "parse_mode": "Markdown",
             "reply_markup": {
                 "inline_keyboard": inline_keyboard
             }
         }
     )
 
-def build_github_link():
+def build_github_event_link():
     github_base_url = f"https://github.com/{Env.GH_REPO}"
 
     event_name_url_map = {
@@ -48,15 +49,18 @@ def build_github_link():
     else:
         return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}"
 
+def build_github_user_link(username):
+    return f"https://github.com/{username}"
+
 def main():
     if telegram_check_token():
         print("Token is valid")
-        link = build_github_link()
+        event_link = build_github_event_link()
         telegram_send_message(
-            message=f"`{Env.GH_EVENT_NAME}` by {Env.GH_ACTOR} in {Env.GH_REPO}",
+            message=f"`{Env.GH_EVENT_NAME}` by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR}) in [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})",
             inline_keyboard=[
                 [
-                    {"text": "View on GitHub", "url": link}
+                    {"text": "View on GitHub", "url": event_link}
                 ]
             ]
         )
