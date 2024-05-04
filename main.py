@@ -26,7 +26,7 @@ def telegram_send_message(message):
     )
 
 def build_github_link():
-    github_base_url = "https://github.com/{Env.GH_REPO}/"
+    github_base_url = f"https://github.com/{Env.GH_REPO}"
 
     event_name_url_map = {
         "issue_comment": "issues",
