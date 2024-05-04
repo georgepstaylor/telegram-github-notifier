@@ -1,4 +1,5 @@
 import os
+import json
 
 class Env:
     try:
@@ -11,7 +12,10 @@ class Env:
         raise Exception("TELEGRAM_CHAT_ID not found in environment variables")
 
     GH_REPO=os.environ.get("GITHUB_REPOSITORY")
-    GH_EVENT = os.environ.get("INPUT_GH_EVENT")
+    try:
+        GH_EVENT = json.loads(os.environ.get("INPUT_GH_EVENT"))
+    except Exception as e:
+        raise Exception("Unable to serialize GH_EVENT, or not found\n" + str(e))
     GH_SHA=os.environ.get("GITHUB_SHA")
     GH_ACTOR=os.environ.get("GITHUB_ACTOR")
     GH_EVENT_NAME=os.environ.get("GITHUB_EVENT_NAME")
