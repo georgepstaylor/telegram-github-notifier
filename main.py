@@ -61,7 +61,8 @@ def main():
             inline_keyboard=[
                 [
                     {"text": "View on GitHub", "url": event_link},
-                    {"text": "View User", "url": build_github_user_link(Env.GH_ACTOR)}
+                    {"text": "View User", "url": build_github_user_link(Env.GH_ACTOR)},
+                    {"text": "View Repo", "url": f"https://github.com/{Env.GH_REPO}"}
                 ]
             ]
         )
