@@ -6,5 +6,5 @@ WORKDIR /app
 
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-CMD ["python", "main.py"]
+ENTRYPOINT ["python"]
+CMD ["main.py"]
