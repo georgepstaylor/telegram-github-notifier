@@ -1,4 +1,4 @@
-name: telegram-notify
+name: telegram-notify-action
 description: 'Send a Telegram message when a github event is triggered'
 author: 'georgepstaylor'
 inputs:
@@ -18,3 +18,7 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+
+branding:
+    icon: 'alert-circle'
+    color: 'blue'
