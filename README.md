@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test
-        uses: georgepstaylor/telegram-notify@v0.0.1
+        uses: georgepstaylor/telegram-github-notifier@v0.0.1
         with:
           telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
