@@ -58,11 +58,11 @@ def build_message(event_name):
     event_link = build_github_event_link()
     if event_name in ["issues", "issue_comment"]:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
-               f"*Action:* {event_name}\n"
+               f"*Action:* `{Env.GH_EVENT['action']}`\n"
                f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
     elif event_name in ["pull_request", "pull_request_review", "pull_request_review_comment"]:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
-                f"*Action:* {Env.GH_EVENT['action']}\n"
+                f"*Action:* `{Env.GH_EVENT['action']}`\n"
                 f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
     else:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
