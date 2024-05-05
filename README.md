@@ -1,4 +1,4 @@
-# Telegram Notify
+# Telegram GitHub Notifier
 
 This action sends a Telegram message to a specified chat based on the
 GitHub event that triggered the action.
