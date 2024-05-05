@@ -42,7 +42,7 @@ def build_github_event_link():
         "push": "commit"
     }
 
-    if Env.GH_EVENT_NAME in ["pull_request_review_comment", "pull_request"]:
+    if Env.GH_EVENT_NAME in ["pull_request_review_comment", "pull_request", "pull_request_review"]:
         return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['number']}"
     elif Env.GH_EVENT_NAME in ["issue_comment", "issues"]:
         return f"{github_base_url}/{event_name_url_map[Env.GH_EVENT_NAME]}/{Env.GH_EVENT['issue']['number']}"
@@ -58,11 +58,11 @@ def build_message(event_name):
     event_link = build_github_event_link()
     if event_name in ["issues", "issue_comment"]:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
-               f"*Action:* {event_name}\n"
+               f"*Action:* `{Env.GH_EVENT['action']}`\n"
                f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
-    elif event_name == "pull_request":
+    elif event_name in ["pull_request", "pull_request_review", "pull_request_review_comment"]:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
-                f"*Action:* {Env.GH_EVENT['action']}\n"
+                f"*Action:* `{Env.GH_EVENT['action']}`\n"
                 f"*Repo:* [{Env.GH_REPO}](https://github.com/{Env.GH_REPO})")
     else:
         return (f"*Event:* [{event_name}]({event_link}) by [{Env.GH_ACTOR}](https://github.com/{Env.GH_ACTOR})\n"
@@ -71,8 +71,12 @@ def main():
     if telegram_check_token():
         print("Token is valid")
         event_link = build_github_event_link()
+        print(Env.GH_EVENT)
+        print(Env.GH_EVENT_NAME)
+        message = build_message(Env.GH_EVENT_NAME)
+        print(message)
         telegram_send_message(
-            message=build_message(Env.GH_EVENT_NAME),
+            message=message,
             inline_keyboard=[
                 [
                     {"text": "Event", "url": event_link},
