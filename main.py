@@ -74,6 +74,7 @@ def main():
         print(Env.GH_EVENT)
         print(Env.GH_EVENT_NAME)
         message = build_message(Env.GH_EVENT_NAME)
+        print(message)
         telegram_send_message(
             message=message,
             inline_keyboard=[
